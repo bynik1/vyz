@@ -1,4 +1,3 @@
-//Задача проверки корректности IP адреса узла.
 #include <stdio.h>
 #include <stdbool.h>
 

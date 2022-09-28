@@ -1,3 +1,4 @@
+//Поиск подстроки в строке.
 #include <stdio.h>
 #include <string.h>
 
@@ -10,7 +11,6 @@ int main()
     char b[N];
     int flag=0;
     int t=0, index;
-    int n=0;
     
     
 
@@ -18,23 +18,25 @@ int main()
 
     for(int i=0;i<strlen(b);i++)
     {
-        for(int j=n;j<S;j++)
+        for(int j=0;j<S;j++)
         {
             if(b[i]==a[j])
             {
                 t++;
-                n=j;
             }
+            
             if(t==strlen(b)){
                 flag=1;
                 index = j;
                 break;
             }
         }
+
         if(flag==1){
             break;
         }
     }
+
     if(flag==1){
         printf("строка найдена индекс вхождения = %d\n",index + 1-strlen(b));
     }

@@ -11,7 +11,7 @@ int main()
 
     for(int i=0;i<strlen(a);i++)
     {
-        if(65<=a[i] && a[i]<=90) //заглавные буквы
+        if(a[i] == toupper(a[i])) //заглавные буквы
         {   
             a[i]=tolower(a[i]);
 

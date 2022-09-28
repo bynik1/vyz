@@ -5,7 +5,6 @@
 char* strtok(char*s, char*del)
 {
     char *firsttok = s;
-    char *endtok;
     char* s1 = s;
     if (firsttok == NULL)
         return NULL;
@@ -27,7 +26,7 @@ int main(){
     
     while (pch != NULL)                         
     {
-      printf("%s", pch);
+      printf("%s\n", pch);
       pch = strtok (NULL, ".");
     }
     printf("\n");

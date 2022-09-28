@@ -1,3 +1,4 @@
+//Вставка/удаление фрагмента строки.
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>

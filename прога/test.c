@@ -1,37 +1,48 @@
 #include <stdio.h>
+#include <string.h>
+#define N 5
+#define S 15
 
-
-char* strtok(char*s, char*del)
+char *str_insert(char str_s[], char str_p[], unsigned int pos, char str_o[])
 {
-    char *firsttok = s;
-    char *endtok;
-    char* s1 = s;
-    if (firsttok == NULL)
-        return NULL;
-    for(int j=0;*s1 != "\0";j++){
-        printf("%d = %c\n", j, *(s1++));
-        if(*s1==*del){
-            s=s1;
-            return firsttok;
-        }
-    }
-    return firsttok;
-}
-
-
-int main(){
-    char s[25];
-    scanf("%s", s);
-    char *pch = strtok(s, ".");
-    
-    while (pch != NULL)                         
+    unsigned int len1 = strlen(str_s);
+    unsigned int len2 = strlen(str_p);
+    unsigned int len = len1 + len2;
+    int c = 0, i = 0;
+    while (c < len)
     {
-      printf("%s", pch);
-      pch = strtok (NULL, ".");
+        if (c == pos)//дошли до позиции куда надо вставлять
+        {
+            i = c;
+            printf("i1 = %d\n", i);
+            for (int x = 0; x < strlen(str_p); x++)
+            {
+               str_o[c] = *(str_p + x);
+               c++;
+               printf("c1 = %d\n", c);
+            }
+        }
+        *(str_o + c) = *(str_s + i);
+        c++;
+        printf("c = %d\n", c);
+        i++;
+        printf("i = %d\n", i);
     }
-    printf("\n");
-
-    return 0;
+    str_o[strlen(str_o)] = '\0';
+    return str_o;
 }
-
-
+ 
+int main() {
+   char a[S];
+   char b[N];
+   scanf("%s",a);
+   scanf("%s",b);
+   char c[strlen(a)+strlen(b)];
+   char *o;
+   o = str_insert(a,b,4,c);
+   for(int i = 0;i<strlen(a)+strlen(b);i++){
+      printf("c[%d] = %c\n", i, o[i]);
+   }
+   
+   return 0;
+}

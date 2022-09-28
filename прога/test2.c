@@ -12,17 +12,23 @@ int main()
 
     for(int i = 0; a != 0;i++)
     {
-        b[i]=a%N+48;
-        a=a/N;
+        b[i] = a % 10+'0';
+        a = a/10;
         k++;
-        printf("%d",b[i]);
+        printf("%c",b[i]);
         printf("%d\n",a);
-        // if(a==0)
-        // {
-        //     printf("fdgfg = %c\n",b[i]);
-        //     break;
-        // } 
+        if(a == 0)
+        {
+            break;
+        } 
     }
+    // while(a != 0){
+    //     b[i]=a%N+48;
+    //     a=a/N;
+    //     k++;
+    //     printf("%d",b[i]);
+    //     printf("%d\n",a);
+    // }
 
     for(int i = N; i >= 0;i--)
     {

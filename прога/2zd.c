@@ -1,3 +1,4 @@
+//Определение префикса строки, состоящего только из допустимых символов.
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
@@ -20,6 +21,7 @@ int main()
             if(b[i]==a[j])
             {
                 flag+=1;
+                break;
             }
         }
     }
