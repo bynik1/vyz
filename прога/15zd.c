@@ -2,10 +2,11 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
+#define N 10
 
 int main()
 {
-    char a[10];
+    char a[N];
 
     scanf("%s",a);
 
@@ -15,7 +16,7 @@ int main()
         {   
             a[i]=toupper(a[i]);
 
-            for(int j=i-1;j<10;j++)
+            for(int j=i-1;j<strlen(a);j++)
             {
                 a[j]=a[j+1]; //сдвигаем символ с конца влево
             }      
