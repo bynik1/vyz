@@ -16,7 +16,7 @@ int main()
         {   
             a[i]=toupper(a[i]);
 
-            for(int j=i-1;j<strlen(a);j++)
+            for(int j=i-1;j<strlen(a)   ;j++)
             {
                 a[j]=a[j+1]; //сдвигаем символ с конца влево
             }      
