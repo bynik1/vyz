@@ -31,7 +31,7 @@ void spiral(int** matrix, int* D, int N)
 	cout << "spiral" << endl;
 	for(j = a; j <= b; j++)
 	{ 
-		D[s] = matrix[c][j];
+		D[s] = matrix[c][j];//первую строчку занесли в массив
 //		cout << D[s] << " ";
 		s++; 
 	}
@@ -39,11 +39,11 @@ void spiral(int** matrix, int* D, int N)
 	c++;
 	while(1)
 	{
-		if(s >= N * N)
+		if(s >= N * N)//?
 			break; 
 		for(i = c; i <= d; i++)
 		{
-			D[s] = matrix[i][b];
+			D[s] = matrix[i][b];//заносем последний столбец в массив
 //			cout << D[s] << " ";
 			s++;
 		}
