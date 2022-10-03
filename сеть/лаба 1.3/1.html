@@ -1,48 +1,18 @@
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    
-    <style>
-      .top {
-        width: 100%;
-        height: 300px;
-      }
-      
-      .wrapper {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-      }
-  
-      .menu {
-        width: 50%;
-        height: 600px;
-        
-      }
-      
-      .table {
-        width: 50%;
-        height: 600px;
-      }
-  
-  
-      .footer {
-        width: 100%;
-        height: 300px;
-      }
-  
-    </style>
-
-    
     <title>Лабораторная 1.3</title>
 </head>
-<frameset rows="10%,*" cols="10%">
-  <frame src="head.html" name="head">
-  <frameset cols="30%, 30%">
-    <frame src="index.html" name="index">
-    <frame src="main.html" name="main">
+  <frameset rows="10%,*">
+    <frame scrolling="no" src="head.html" name="head" noresize>
+    <frameset cols="30%, 30%">
+      <frame scrolling="no" src="index.html" name="index" noresize>
+      <frame scrolling="no" src="main.html" name="main" noresize>
+    </frameset>
   </frameset>
-</frameset>
+
+
     <!-- <a href="s1.html" target="frame">Ссылка</a>
     <a href="s2.html" target="frame">Ссылка</a>
     <a href="s3.html">Ссылка</a> -->
