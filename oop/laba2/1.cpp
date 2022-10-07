@@ -225,7 +225,6 @@ void printMatrix(int** matrix, int N)
 
 void printMasive(int *D, int N)
 {
-//	cout << "masive" << endl;
 	for(int j = 0; j < N*N ; j++)
 		cout << D[j] << " ";
 	cout << endl;
