@@ -1,8 +1,6 @@
-let side=document.getElementById("side").value;
-let squre= document.getElementById("evaluate");
-let res;
+side=document.getElementById("side");
+square=document.getElementById("square");
 
-squre.onclick() = function(){
-    res = Number(side)*Number(side);
-    document.getElementById("square").value=res;
+function load(){
+    square.value = side.value*side.value;
 }
