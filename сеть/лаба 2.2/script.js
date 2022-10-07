@@ -4,9 +4,11 @@ start=document.getElementById("start");
 stop=document.getElementById("stop");
 fast=document.getElementById("fast");
 slow=document.getElementById("slow");
+
 let timer;
 let i=1, b=0;
 let sec = 200;
+
 
 start.onclick = function pusk(){
     timer = setInterval(tim, sec);//Он циклически вызывает функцию или участок кода с фиксированной паузой между каждым вызовом.
@@ -41,23 +43,24 @@ function tim(){
         imag = new Image();//Конструктор Image() создаёт новый экземпляр HTMLImageElement.
         imag.src="gif/s"+i+".gif";
         image1.src=imag.src;
-        if(i == 12){
+        if(i == 7){
             i = 0;
             b = 1;
-            imag.src="gif/s"+8+".gif";
+            imag.src="gif/s8.gif";
             image1.src=imag.src;
         }
+        //document.getElementById("i").innerHTML = b;
         i++;
     }
 
     if(b == 1){
-        imag = new Image();//Конструктор Image() создаёт новый экземпляр HTMLImageElement.
+        //imag = new Image();//Конструктор Image() создаёт новый экземпляр HTMLImageElement.
         imag.src="gif/s"+i+".gif";
         image2.src=imag.src;
-        if(i == 12){
+        if(i == 7){
             i = 0;
             b = 0;
-            imag.src="gif/s"+8+".gif";
+            imag.src="gif/s8.gif";
             image2.src=imag.src;
         }
         i++;
