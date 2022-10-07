@@ -2,24 +2,24 @@
 <head>
 <title>Перестановка двух изображений</title>
 <script>
-<!--
 function chpict(){
  var l = document.pm1.src
  document.pm1.src = document.pm2.src
  document.pm2.src = l
 }
--->
 </script>   
 
 </head>
 <body>
 <img src="1.jpeg" name="pm1">
 <img src="index.jpeg" name="pm2">
-<h2 language="JavaScript" onClick="alert('Сейчас произойдет обмен');">
+<h2 language="JavaScript" >
 
 <form name="form1">
- <button type="button"  onClick="chpict()">Обновить</button>
+ <button type="button" onClick="chpict()">Обновить</button>
 </form>
 </h2>
+<button onClick="chpict()">Обновить</button>
+
 </body>
 </html>
