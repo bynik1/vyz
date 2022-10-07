@@ -1,33 +1,40 @@
 //Разбиение строки по полям
 #include <stdio.h>
+#include <string.h>
 
 
-char* strtok(char*s, char*del)
+char **str_tok(char *s, char del, char *arr[])
 {
-    char *firsttok = s;
-    char* s1 = s;
-    if (firsttok == NULL)
-        return NULL;
-    for(int j=0;*s1 != "\0";j++){
-        printf("%d = %c\n", j, *(s1++));
-        if(*s1==*del){
-            s=s1;
-            return firsttok;
+    int i = 0;
+    int c = 0;
+    for (int x = 0; x < strlen(s); x++)
+    {
+        arr[i][c] = *(s + x);
+        printf("ch - %c\n", *(s + x));
+        if (*(s + x + 1) == del)
+        {
+            i++;
+            x++;
+            c = 0;
+            continue;
         }
+        c++;
     }
-    return firsttok;
+    return arr;
 }
 
 
 int main(){
-    char s[25];
+    char *s;
+    char *arr[25];
     scanf("%s", s);
-    char *pch = strtok(s, ".");
+    char del = '.';
+    char *pch = str_tok(s, del, arr);
     
     while (pch != NULL)                         
     {
       printf("%s\n", pch);
-      pch = strtok (NULL, ".");
+      pch = str_tok (NULL, del, arr);
     }
     printf("\n");
 
