@@ -20,11 +20,12 @@ int main()
         {
             if(b[i]==a[j])
             {
-                flag=0;
+                flag = 0;
                 break; //оптимизация
             }
         }
     }
+    
     if(flag==1)
     {
         printf("походит\n");

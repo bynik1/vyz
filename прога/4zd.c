@@ -16,7 +16,7 @@ int main()
     bool flag = 0;
 
     scanf("%s", b);
-    for (int i = 0; i < S; i++) //прохлдим по массиву
+    for (int i = 0; i < S; i++) //проходим по массиву
     {
         if (a[i] == b[k])
         {
