@@ -22,7 +22,7 @@ function clockTick() {
     if (secunde < 10)
         secunde = "0" + secunde;
     
-    //now = null;
+    now = null;
     // minute += "";
     // hour += "";
     // secunde += "";
