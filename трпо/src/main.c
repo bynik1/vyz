@@ -26,7 +26,7 @@ int main()
 							check_letter = scanf("%d", &Num);
 							while (getchar() != '\n')
 								;
-							if (check_letter == 1) {
+							if (check_letter == 1){
 								if (Num == 1)
 									printf("Человек 1 взял %d спичку\n", Num);
 								if (Num >= 2 && Num <= 4)
