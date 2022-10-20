@@ -1,0 +1,146 @@
+<SCRIPT LANGUAGE="JavaScript">
+    document.write(setClock()); // Первый пример - время загрузки страницы
+function setClock() { 
+    var text = "";
+    var openImage = "<IMG SRC=\"" + getPath(location.href) + "dg";
+    var closeImage = ".gif\" HEIGHT=21 WIDTH=16>";  
+    var now = new Date(); // создается объект, хранящий дату и время 
+    var hour = now.getHours(); // возвращает час (от 0 до 23)
+    var minute = now.getMinutes(); // возвращает минуту
+    
+    now = null; //никакое» значение (обнуление переменной)
+    var ampm = "";
+    if (hour >= 12) { 
+        hour -= 12; 
+        ampm = "pm";
+    } else 
+        ampm = "am";
+    hour = (hour == 0) ? 12 : hour;
+    if (minute < 10){
+         minute = "0" + minute;
+    }
+    // чтобы была надпись вида «05» минут
+    minute += ""; 
+    hour += "";
+    for (var i = 0; i < hour.length; ++i) {
+        text += openImage + hour.charAt(i) + closeImage; // длина строки
+    }
+    
+    // возвращает i–ый символ из строки
+    
+    text += openImage + "c.gif\" HEIGHT=21 WIDTH=9>";
+    
+    for (var i = 0; i < minute.length; ++i) {
+    
+        text += openImage + minute.charAt(i) + closeImage;
+    }
+    
+    text += openImage + ampm + closeImage;
+    
+    return text;
+}
+    function getPath(url) {
+        lastSlash = url.lastIndexOf("/"); // возвращает позицию указанного символа в строке,
+        // начиная поиск с конца
+        return url.substring(0, lastSlash + 1); // возвращает часть строки от 1-го по 2-й индекс
+    }
+    
+    document.write(setDate())// Второй пример - текущая дата
+    function setDate() {
+        var text = "";
+        var openImage = "<IMG SRC=\"" + getPath(location.href) + "dg";
+        var closeImage = ".gif\" HEIGHT=21 WIDTH=16>";
+        var now = new Date();
+        var date = now.getDate(); var month = now.getMonth(); var year = now.getYear();
+        now = null;
+        month++; // сдвиг 0 - 11 => 1 - 12
+        date += ""; month += ""; year += "";
+        for (var i = 0; i < date.length; ++i) {
+            text += openImage + date.charAt(i) + closeImage;
+        }   
+
+        text += openImage + "p.gif\" HEIGHT=21 WIDTH=9>";
+        for (var i = 0; i < month.length; ++i) {
+        text += openImage + month.charAt(i) + closeImage;
+        } 
+
+        text += openImage + "p.gif\" HEIGHT=21 WIDTH=9>";
+        for (var i = 0; i < year.length; ++i) {
+            text += openImage + year.charAt(i) + closeImage;
+        }
+
+        return text;
+}
+    
+    // Пример идущих часов - в статусной строке
+    function clock_status(){ window.setTimeout("clock_status()",100); today=new Date();
+    self.status=today.toString()}
+    // преобразует объект (дату и время) в строку вида: "Thu, 11 Jan 2002 06:05:15"
+    // --></SCRIPT>
+    <html><head><!-- lab11.htm -->
+    <script> // шаг 1
+    dig0 = new Image(); dig0.src = "dg0.gif"; dig1 = new Image(); dig1.src = "dg1.gif";
+    dig2 = new Image(); dig2.src = "dg2.gif"; dig3 = new Image(); dig3.src = "dg3.gif";
+    dig4 = new Image(); dig4.src = "dg4.gif"; dig5 = new Image(); dig5.src = "dg5.gif";
+    dig6 = new Image(); dig6.src = "dg6.gif"; dig7 = new Image(); dig7.src = "dg7.gif";
+    dig8 = new Image(); dig8.src = "dg8.gif"; dig9 = new Image(); dig9.src = "dg9.gif";
+    </script>
+    </head>
+    <body bgcolor="#FFFFFF">
+    <center><table bordercolor="#000000"> <!-- шаг 2 -->
+    <tr><td>
+    <img name="dg1" width="23" height="28"> <!-- шаг 3 -->
+    <img name="dg2" width="23" height="28">
+    <img src="dgc.gif" width="23" height="28"><!-- двоеточие м-ду цифрами -->
+    <img name="dg3" width="23" height="28">
+    <img name="dg4" width="23" height="28">
+    <img src="dgc.gif" width="23" height="28"><!-- двоеточие м-ду цифрами -->
+    <img name="dg5" width="23" height="28">
+    <img name="dg6" width="23" height="28">
+    </td></tr>
+    </table></center>
+    <script language="JavaScript">
+    function clockTick() {
+        var now = new Date();
+        var secunde = now.getSeconds();
+        var minute = now.getMinutes(); 
+        var hour = now.getHours();
+        hour = (hour == 0) ? 12 : hour;
+
+        if (minute < 10){
+            minute = "0" + minute;
+        }
+        if (secunde < 10){
+            secunde = "0" + secunde;
+        }
+        now = null;
+        minute += "";
+        hour += "";
+        secunde += "";
+
+        setRis(hour.charAt(0),dg1);
+        setRis(hour.charAt(1),dg2);
+        setRis(minute.charAt(0),dg3);
+        setRis(minute.charAt(1),dg4);
+        setRis(secunde.charAt(0),dg5);
+        setRis(secunde.charAt(1),dg6);
+        setTimeout("clockTick()", 1000);
+        }
+        
+        function setRis(num,ris) {
+            if (num == "0") ris.src=dig0.src;
+            if (num == "1") ris.src=dig1.src;
+            if (num == "2") ris.src=dig2.src;
+            if (num == "3") ris.src=dig3.src;
+            if (num == "4") ris.src=dig4.src;
+            if (num == "5") ris.src=dig5.src;
+            if (num == "6") ris.src=dig6.src;
+            if (num == "7") ris.src=dig7.src;
+            if (num == "8") ris.src=dig8.src;
+            if (num == "9") ris.src=dig9.src;
+        }
+        
+        clockTick();
+    </script>
+    
+    </body></html>
