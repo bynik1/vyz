@@ -6,10 +6,14 @@ dig8 = new Image(); dig8.src = "gif/dg8.gif"; dig9 = new Image(); dig9.src = "gi
 dgam = new Image(); dgam.src = "gif/dgam.gif"; dgpm = new Image(); dgpm.src = "gif/dgpm.gif";
 function clockTick() {
     let now = new Date();
-    now.setHours(19);
+    //now.setHours(19);
     let secunde = now.getSeconds();
     let minute = now.getMinutes(); 
-    let hour = now.getHours();
+    let hour = now.getHours() - 4;
+    let month = now.getMonth() + 1;
+    let day = now.getDate()
+    let year = now.getFullYear();
+    
     hour >= 12 ? dg7.src=dgpm.src : dg7.src=dgam.src;
     hour = hour % 12;
 
@@ -37,6 +41,17 @@ function clockTick() {
     setRis(minute.toString().charAt(1),dg4);
     setRis(secunde.toString().charAt(0),dg5);
     setRis(secunde.toString().charAt(1),dg6);
+    setRis(day.toString().charAt(0),dg8);
+    setRis(day.toString().charAt(1),dg9);
+    setRis(month.toString().charAt(0),dg10);
+    setRis(month.toString().charAt(1),dg11);
+    setRis(year.toString().charAt(0),dg12);
+    setRis(year.toString().charAt(1),dg13);
+    setRis(year.toString().charAt(2),dg14);
+    setRis(year.toString().charAt(3),dg15);
+
+
+    
     
     setTimeout("clockTick()", 1000);
     }
@@ -52,6 +67,12 @@ function clockTick() {
         if (num == "7") ris.src=dig7.src;
         if (num == "8") ris.src=dig8.src;
         if (num == "9") ris.src=dig9.src;
+        if (num == "10") ris.src=dig10.src;
+        if (num == "11") ris.src=dig11.src;
+        if (num == "12") ris.src=dig12.src;
+        if (num == "13") ris.src=dig13.src;
+        if (num == "14") ris.src=dig14.src;
+        if (num == "15") ris.src=dig15.src;
     }
     
     clockTick();
