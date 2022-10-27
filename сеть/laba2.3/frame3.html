@@ -3,13 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <title>Лабораторная 1.3</title>
+  <style>
+    html:hover {
+    background-color: yellow; /* Цвет фона под ссылкой */ 
+   }
+  </style>
 </head>
 <body>
   <h1>Вычисление площади</h1>
   <form><b>Сторона:</b>
     <input id= "side" type= "title" onBlur="load()"><br><br>
     <b>Площадь:</b>
-    <input id= "square" type= "title">
+    <input id= "square" type= "title"><br>
+    <button type="button" onClick="load()">Квадрат</button>
+    <button type="button" onClick="volume()">Куб</button>
   </form>
 </body>
 </html>

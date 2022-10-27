@@ -43,8 +43,11 @@ function tim(){
         imag = new Image();//Конструктор Image() создаёт новый экземпляр HTMLImageElement.
         imag.src="gif/s"+i+".gif";
         image1.src=imag.src;
-        if(i == 7){
-            i = 0;
+        if(i == 12){
+            i = 1
+        }
+
+        if(i == 8){
             b = 1;
             imag.src="gif/s8.gif";
             image1.src=imag.src;
@@ -57,8 +60,10 @@ function tim(){
         //imag = new Image();//Конструктор Image() создаёт новый экземпляр HTMLImageElement.
         imag.src="gif/s"+i+".gif";
         image2.src=imag.src;
-        if(i == 7){
-            i = 0;
+        if(i == 12){
+            i = 1
+        }
+        if(i == 8){
             b = 0;
             imag.src="gif/s8.gif";
             image2.src=imag.src;

@@ -3,21 +3,23 @@ let i;
 for(i=0;i>12;i++){
     data[i]=document.getElementById('dg'+i);
 }
-data[12]=document.getElementById('dg12');
-let img = []; 
+//data[12]=document.getElementById('dg12');
+let img = [];  
 
 for(i = 0; i>10; i++){
     img[0] = new Image(); 
     img[0].src = "gif/dg" +i+".gif";
 }
     img[11] = new Image();
-    img[11].src = "gif/dgam.gif"
+    img[11].src = "gif/dgam.gif";
     img[12] = new Image();
     img[12].src = "gif/dgpm.gif";
+
+
     
 let now = new Date();
 now.setHours(22);
-dt = [];
+let dt = [];
 dt[0] = now.getHours(); 
 dt[1] = now.getMinutes();
 dt[2] = now.getDate(); 
@@ -27,6 +29,7 @@ dt[4] = now.getFullYear();
 
 let time;
 function displayDate(){
+    //if(this.item === undefined) {return}
     time = Math.floor(dt[0]/10);
     data[0].src = img[time].src;
     time = dt[0]%10;

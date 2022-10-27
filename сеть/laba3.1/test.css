@@ -1,0 +1,59 @@
+.container {
+    max-width: 1170px;
+    margin: 0 auto;
+    padding: 0 10px;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box; }
+   
+  header {
+    background-color: #333; }
+    header .menu {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: stretch;
+      -webkit-align-items: stretch;
+          -ms-flex-align: stretch;
+              align-items: stretch;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      height: 48px; }
+      header .menu .main {
+        list-style-type: none;
+        color: #fff;
+        position: relative;
+        padding: 0 20px;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+            -ms-flex-align: center;
+                align-items: center;
+        cursor: default; }
+        header .menu .main a {
+          color: #fff; }
+        header .menu .main:hover {
+          background-color: #444; }
+        header .menu .main ul {
+          display: none;
+          background-color: #333;
+          position: absolute;
+          left: 0;
+          top: 100%;
+          width: 210px; }
+          header .menu .main ul li {
+            padding: 6px 10px;
+            list-style-type: none;
+            position: relative; }
+            header .menu .main ul li:hover {
+              background-color: #444; }
+            header .menu .main ul li ul {
+              display: none;
+              position: absolute;
+              top: 0;
+              left: 100%; }
