@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Лабораторная 3.1</title>
+    <style>
+        .spanM {
+            position: relative;
+            z-index: 1;
+            background: cadetblue;
+            font-size: 30px;
+            color: blueviolet;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .spanM1 {
+            position: relative;
+            z-index: 1;
+            margin-right: 40px;
+            margin-left: 10px;
+        }
+
+        .span1 {
+            position: absolute;
+            z-index: 2;
+            display: none;
+            border: 2px solid;
+            margin-top: -3px;
+            margin-left: 40px;
+        }
+
+        .span2 {
+            position: absolute;
+            z-index: 2;
+            display: none;
+            border: 2px solid;
+            margin-top: -3px;
+            margin-left: 190px;
+        }
+
+        .span3 {
+            position: absolute;
+            z-index: 2;
+            display: none;
+            border: 2px solid;
+            margin-top: -3px;
+            margin-left: 340px;
+        }
+
+        .div1 {
+            position: relative;
+            z-index: 2;
+            font-size: 20px;
+            background: cadetblue;
+            padding-left: 5px;
+            color: blueviolet;
+        }
+
+        .div2 {
+            position: relative;
+            z-index: 2;
+            font-size: 20px;
+            background: cadetblue;
+            padding-left: 5px;
+            color: blueviolet;
+        }
+
+        .div3 {
+            position: relative;
+            z-index: 2;
+            font-size: 20px;
+            background: cadetblue;
+            padding-left: 5px;
+            color: blueviolet;
+        }
+    </style>
+
+    <script src="script.js" language="JavaScript"></script>
+</head>
+
+<body>
+    <span class="spanM">
+        <span class="spanM1" onMouseOver="show(sp1)" onmouseout="timer = setTimeout(hide, 1000, sp1)">Menu 1</span>
+        <span class="spanM1" onMouseOver="show(sp2)" onmouseout="timer = setTimeout(hide, 1000, sp2)">Menu 2</span>
+        <span class="spanM1" onMouseOver="show(sp3)" onmouseout="timer = setTimeout(hide, 1000, sp3)">Menu 3</span>
+    </span>
+
+    <span class="span1" id="sp1" onMouseOver="clearTimeout(timer)" onmouseout="timer = setTimeout(hide, 1000, this)">
+        <div class="div1" onMouseOver="bgin(this)" onmouseout="bgout(this)">subMenu1</div>
+        <div class="div1" onMouseOver="bgin(this)" onmouseout="bgout(this)">subMenu1</div>
+        <div class="div1" onMouseOver="bgin(this)" onmouseout="bgout(this)">subMenu1</div>
+        <div class="div1" onMouseOver="bgin(this)" onmouseout="bgout(this)">subMenu1</div>
+        <div class="div1" onMouseOver="bgin(this)" onmouseout="bgout(this)">subMenu1</div>
+    </span>
+
+    <span class="span2" id="sp2" onMouseOver="clearTimeout(timer)" onmouseout="timer =   (hide2, 1000, this)">
+        <div class="div2" onMouseOver="bgin(this)" onmouseout="bgout(this)">subMenu2</div>
+        <div class="div2" onMouseOver="bgin(this)" onmouseout="bgout(this)">subMenu2</div>
+        <div class="div2" onMouseOver="bgin(this)" onmouseout="bgout(this)">subMenu2</div>
+        <div class="div2" onMouseOver="bgin(this)" onmouseout="bgout(this)">subMenu2</div>
+        <div class="div2" onMouseOver="bgin(this)" onmouseout="bgout(this)">subMenu2</div>
+    </span>
+
+    <span class="span3" id="sp3" onMouseOver="clearTimeout(timer)" onmouseout="timer = setTimeout(hide, 1000, this)">
+        <div class="div3" onMouseOver="bgin(this)" onmouseout="bgout(this)">subMenu3</div>
+        <div class="div3" onMouseOver="bgin(this)" onmouseout="bgout(this)">subMenu3</div>
+        <div class="div3" onMouseOver="bgin(this)" onmouseout="bgout(this)">subMenu3</div>
+        <div class="div3" onMouseOver="bgin(this)" onmouseout="bgout(this)">subMenu3</div>
+        <div class="div3" onMouseOver="bgin(this)" onmouseout="bgout(this)">subMenu3</div>
+    </span>
+
+</body>
+
+</html>
