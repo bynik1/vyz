@@ -1,0 +1,30 @@
+div.main {
+    background: cadetblue;;
+    height: 3em;
+    /* display: flex; */
+    font-weight: bold;
+
+    justify-content: left;
+    color: white;
+    border-radius: 1em;
+    margin-right: 750px;
+}
+div.menu {
+    line-height: 3em;
+    width: 10%;
+    text-align: center;
+    cursor: hand;
+    float: left;
+    min-width: 200px;
+
+}
+div.subMenu {
+    
+    background-color:blueviolet;
+    min-width: 200px;
+    
+}
+
+span {
+    display: block;
+}
