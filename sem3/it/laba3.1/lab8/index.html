@@ -22,32 +22,31 @@
         }
 
         .span1 {
-            position: absolute;
+            position: relative;
             z-index: 2;
             display: none;
             border: 2px solid;
-            margin-right: 1060px;
+            margin-right: 1760px;
             margin-top: -3px;
             margin-left: 40px;
         }
 
         .span2 {
-            position: absolute;
+            position: relative;
             z-index: 2;
             display: none;
             border: 2px solid;
-        margin-right: 909px;
-
+            margin-right: 1600px;
             margin-top: -3px;
             margin-left: 190px;
         }
 
         .span3 {
-            position: absolute;
+            position: relative;
             z-index: 2;
             display: none;
             border: 2px solid;
-            margin-right: 758px;
+            margin-right: 1450px;
             margin-top: -3px;
             margin-left: 340px;
         }
@@ -98,7 +97,7 @@
         <div class="div1" onMouseOver="bgin(this)" onmouseout="bgout(this)">subMenu1</div>
     </span>
 
-    <span class="span2" id="sp2" onMouseOver="clearTimeout(timer)" onmouseout="timer = (hide, 10, this)">
+    <span class="span2" id="sp2" onMouseOver="clearTimeout(timer)" onmouseout="timer = setTimeout(hide, 10, this)">
         <div class="div2" onMouseOver="bgin(this)" onmouseout="bgout(this)">subMenu2</div>
         <div class="div2" onMouseOver="bgin(this)" onmouseout="bgout(this)">subMenu2</div>
         <div class="div2" onMouseOver="bgin(this)" onmouseout="bgout(this)">subMenu2</div>
