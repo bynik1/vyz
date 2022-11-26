@@ -59,13 +59,13 @@ function summ(element) {
 	td.innerHTML = h3.innerHTML;
 	tr.append(td);
 	
-	td = document.createElement('td');
-	cross = document.createElement('img');
-	cross.setAttribute('src', 'gtr.jpg');
-	cross.setAttribute('width', '20px');
-	cross.setAttribute('onClick', 'closes(this)');
-	td.append(cross);
-	tr.append(td);
+	// td = document.createElement('td');
+	// cross = document.createElement('img');
+	// cross.setAttribute('src', 'this');
+	// cross.setAttribute('width', '20px');
+	// cross.setAttribute('onClick', 'closes(this)');
+	// td.append(cross);
+	// tr.append(td);
 	
 	q.innerHTML = Number(q.innerHTML) + 1;
 	sum.innerHTML = Number(sum.innerHTML.replace(/[a-za-яё\s$]/gi,'')) + Number(h3.innerHTML.replace(/[a-za-яё\s$  ]/gi,''));
@@ -100,3 +100,21 @@ function closes(element) {
     /*sum.innerHTML = Number(sum.innerHTML.replace(/[a-za-яё\s]/gi,'')) - Number(h3.innerHTML.replace(/[a-za-яё\s]/gi,''));*/
    
 }
+$(function() {
+	let header = $('.header');
+	let hederHeight = header.height(); // вычисляем высоту шапки
+	 
+	$(window).scroll(function() {
+	  if($(this).scrollTop() > 1) {
+	   header.addClass('header_fixed');
+	   $('body').css({
+		  'paddingTop': hederHeight+'px' // делаем отступ у body, равный высоте шапки
+	   });
+	  } else {
+	   header.removeClass('header_fixed');
+	   $('body').css({
+		'paddingTop': 0 // удаляю отступ у body, равный высоте шапки
+	   })
+	  }
+	});
+   });
