@@ -96,6 +96,11 @@ body{
 
 }
 
+main_top{
+    width: 100%;
+    height: 1560px;
+}
+
 h1{
     color:black;
     text-align:center;
@@ -178,7 +183,7 @@ ul {
 
 .change {
     width: 20%;
-    top: 2.655%;
+    top: 134px;
     position: relative;
     float: left;
 }
@@ -290,4 +295,34 @@ th, td{
     margin-top: 7%;
     width: 40%;
     height: 60%;
+}
+
+a.rollover {
+    background: url(images/top.png); /* Путь к файлу с исходным рисунком  */
+    display: block; /*  Рисунок как блочный элемент */
+    width: 14%;
+    height: 60px;
+    left: 22%;
+    position: relative;
+    margin-left: 20px;
+    font-size: 20px;
+   }
+a.rollover:hover {
+    background: url(image/yandex.png); /* Путь к файлу с заменяемым рисунком  */
+   }
+   
+img{
+    max-width: 100%;    
+}
+.wrapper-img{    
+    position: relative;
+    max-width: 300px;
+}
+.wrapper-img .img-hide{    
+    opacity: 0;      
+}
+.wrapper-img:hover .img-hide{
+    opacity: 1;
+    position: absolute; top: 0; left: 0;  
+    transition: all 0.5s ease-in-out;   
 }
