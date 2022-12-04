@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title></title>
+</head>     
+<body>
+    <div class="header">
+        <h1> Магазин</h1>
+        <img class="logo" src="car.jpg">
+        <button class="but">О компании</button> 
+        <button class="but">Акции</button>
+        <button class="but">Бонусы</button>
+        <button class="but">Спец. предложения</button>
+        <p class="q"> 0 </p>
+        <p class="sum"> 0 р. </p> 
+        <img onClick="openspisok()" class="kor" src="carkorz.jpg">
+    </div>
+    <div class="main">
+        <div class="change"> 
+            <button onclick="show(this)">BMW</button>
+            <button onclick="show(this)">Mercedes</button>
+            <button> Audi</button>
+            <button> Porshe</button>
+        </div>
+        <div class="list1">
+            <div class="card">
+                <img src="bmw1.jpg">
+                <p>X5M</p>
+                <button onClick="summ(this)"> buy </button>
+                <h3>14500000р.</h3>
+            </div>
+            <div class="card">
+                <img src="bmw2.jpg">
+                <p>M4 comp.</p>
+                <button onClick="summ(this)"> buy </button>
+                <h3>8000000р.</h3>
+            </div>
+            <div class="card">
+                <img src="bmw3.jpg">
+                <p>M8 gr. coupe</p>
+                <button onClick="summ(this)"> buy </button>
+                <h3>15700000р.</h3>
+            </div>
+            <div class="card">
+                <img src="bmw4.jpg">
+                <p>M5 CS</p>
+                <button onClick="summ(this)"> buy </button>
+                <h3>17000000р.</h3>
+            </div>
+        </div>
+        <div class="list2">
+            <div class="card">
+                <img src="merc1.jpg">
+                <p>GLA 45 AMG</p>
+                <button onClick="summ(this)"> buy </button>
+                <h3>4200000р.</h3>
+            </div>
+            <div class="card">
+                <img src="merc2.jpg">
+                <p>CLS63 AMG</p>
+                <button onClick="summ(this)"> buy </button>
+                <h3>5100000р.</h3>
+            </div>
+            <div class="card">
+                <img src="merc3.jpg">
+                <p>S63 AMG</p>
+                <button onClick="summ(this)"> buy </button>
+                <h3>20000000р.</h3>
+            </div>
+            <div class="card">
+                <img src="merc4.jpg">
+                <p>G63 AMG</p>
+                <button onClick="summ(this)"> buy </button>
+                <h3>30000000р.</h3>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="bot">
+        <a href=""><img src="supercar.jpg"></a>
+    </div>
+    <div class="spisok">
+        <table cellspacing="0">
+            <tr>
+                <th>№</th>
+                <th>Название</th>
+                <th>Цена</th>
+                <th></th>
+            </tr>
+        </table>
+    </div>
+    <script src = "script.js"> </script>
+</body>
+</html>
