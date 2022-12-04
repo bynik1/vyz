@@ -1,0 +1,21 @@
+/* .img {
+    background: url("logo.jpg") no-repeat;
+    height: 1000px;
+    width: 1000px;
+}
+.img:hover {
+    background: url("news.jpg") no-repeat;
+    border: 2px solid #f00;
+    height: 1200px;
+    width: 1200px;
+  } */
+div.rotate1 {
+    background: url("2.jpg"); /* Путь к файлу с исходным рисунком */
+
+    width: 480px; /* Ширина рисунка */  
+    height: 360px; /* Высота рисунка */
+    }
+
+div.rotate1:hover {
+    background: url("3.jpg"); /* Путь к файлу с заменяемым рисунком */
+    }
