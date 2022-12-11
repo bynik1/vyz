@@ -101,7 +101,7 @@ function closes(element) {
    
 }
 
-function show(element){
+function show1(element){
 	element.style.display = "block";
 }
 
