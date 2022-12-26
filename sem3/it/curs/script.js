@@ -59,14 +59,6 @@ function summ(element) {
 	td.innerHTML = h3.innerHTML;
 	tr.append(td);
 	
-	// td = document.createElement('td');
-	// cross = document.createElement('img');
-	// cross.setAttribute('src', 'this');
-	// cross.setAttribute('width', '20px');
-	// cross.setAttribute('onClick', 'closes(this)');
-	// td.append(cross);
-	// tr.append(td);
-	
 	q.innerHTML = Number(q.innerHTML) + 1;
 	sum.innerHTML = Number(sum.innerHTML.replace(/[a-za-яё\s$]/gi,'')) + Number(h3.innerHTML.replace(/[a-za-яё\s$  ]/gi,''));
 	sum.innerHTML += '$'
@@ -89,16 +81,12 @@ function openspisok() {
 	    spisok.style.display = "none";
         chet = 0;
     }
-	
 }
 
 function closes(element) {
 	parent = element.parentElement.parentElement;
 	parent.remove();
     pa = p.element;
-    /*q.innerHTML = Number(q.innerHTML) - 1;*/
-    /*sum.innerHTML = Number(sum.innerHTML.replace(/[a-za-яё\s]/gi,'')) - Number(h3.innerHTML.replace(/[a-za-яё\s]/gi,''));*/
-   
 }
 
 function show1(element){

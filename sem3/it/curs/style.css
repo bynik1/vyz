@@ -20,13 +20,6 @@ body{
     
 }
 .but{
-    /* width: 14%;
-    height: 60px;
-    top: 5%;
-    bottom:3px;
-    margin-left: 20px;
-     */
-
     left: 4%;
     margin-top: 0.05%;
     font-size: 20px;
@@ -47,12 +40,6 @@ body{
     font-family:Georgia, 'Times New Roman', Times, serif;
 }  
 
-.logo{
-    width: 186px;
-    position: absolute;
-    top: 10px;
-    border: 1px solid black;
-}
 @keyframes shadow{
 	0% {
 		box-shadow: 0px  0px 0px 0px rgb(252, 5, 5);
@@ -74,25 +61,12 @@ body{
 .main{
     width: 100%;
     height: 5020px;
-    /* margin-top: 6.8%; */
-    
-    /* background: #c7b39b url(image/btc.jpg);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment: fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    text-align:center;
-     */
 }
 
 .mainvideo{
     width: 100%;
     height: 1560px;
     margin-top: 6.8%;
-    /* margin-; */
 
 }
 
@@ -115,7 +89,6 @@ h3{
 }
 footer {
     position: absolute;
-    /* position: relative; */
     width: 99.45%;
     padding: 5px;
     height: 100px;
@@ -208,7 +181,6 @@ ul {
 .list1, .list2, .list3, .list4{
     width: 100%;
     height: 320px;
-    /*background-color:lightskyblue;*/
     min-width: 500px;
 }
 
@@ -296,50 +268,6 @@ th, td{
     width: 40%;
     height: 60%;
 }
-
-/* a {
-    display: inline-block;
-  }
-  
-  img {
-    transition: all .3s ease;
-  }
- 
-  a:hover img {
-    opacity: 0;
-  } */
-  
-  /* a:hover {
-    background: no-repeat center/30% url("image/news.jpg");
-    border: 1px solid #f00;
-} */
-
-  /* a:hover {
-    background: no-repeat url("image/3.jpg");
-    border: 1px solid #f00;
-  } */
-
-
-   /* .img {
-    background: url("image/top.jpg") no-repeat;
-    height: 100px;
-    width: 100px;
-}
-.img:hover {
-    background: url("image/news.jpg") no-repeat;
-    border: 2px solid #f00;
-    height: 120px;
-    width: 120px;
-  } */
-
-/* a {
-    display: inline-block;
-  }
-  
-  img {
-    transition: all .3s ease;
-  }
-  */
 .but1:hover img {
     opacity: 0;
   }
