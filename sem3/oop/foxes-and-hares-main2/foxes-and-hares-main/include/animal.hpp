@@ -15,7 +15,6 @@ class Model;
 class Animal {
 public:
     virtual void move(Model& mod) = 0;
-    virtual void change() = 0;
     virtual void changeAge() = 0;
     virtual void birth(Model& mod) = 0;
     virtual ~Animal() {};
@@ -32,11 +31,10 @@ class Fox : public Animal {
 public:
     Fox();
     Fox(int _x, int _y, int _d, int _s);
-    ~Fox() override {}//деструктор
-    void move(Model& mod) override;//переопределнеи метода override
-    void change() override;
+    ~Fox() override {}
+    void move(Model& mod) override;
     void changeAge() override;
-    std::list<Fox*>::iterator death(std::list<Fox*>& l, std::list<Fox*>::iterator i);//list  двусвязный список
+    std::list<Fox*>::iterator death(std::list<Fox*>& l, std::list<Fox*>::iterator i);
     void birth(Model& mod) override;
     void eat(Model& mod);
     int getage();
@@ -53,7 +51,6 @@ public:
     Rabbit(int _x, int _y, int _d, int _s);
     ~Rabbit() override {}
     void move(Model& mod) override;
-    void change() override;
     void changeAge() override;
     std::list<Rabbit*>::iterator death(std::list<Rabbit*>& l, std::list<Rabbit*>::iterator i);
     void birth(Model& mod) override;

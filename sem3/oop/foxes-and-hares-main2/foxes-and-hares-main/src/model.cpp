@@ -32,8 +32,21 @@ Model::Model(std::ifstream& i)
             --f;
         }
     } catch (const std::exception& e) {
-        std::cerr << e.what() << '\n';
-    }//отлов ошибок
+        std::cerr << "error fill list :: " << e.what() << '\n';
+        exit(EXIT_FAILURE);
+    }
+}
+
+Model::~Model()
+{
+    for (auto& i : this->R) {
+        if (i)
+            delete i;
+    }
+    for (auto& i : this->F) {
+        if (i)
+            delete i;
+    }
 }
 
 void Model::createField(size_t n, size_t m)
@@ -67,7 +80,10 @@ void Model::outField(std::ostream& os)
 {
     for (size_t i = 0; i < this->N; ++i) {
         for (size_t j = 0; j < this->M; ++j) {
-            os << this->field[i][j] << ' ';
+            if (this->field[i][j])
+                os << this->field[i][j] << ' ';
+            else
+                os << '*' << ' ';
         }
         os << '\n';
     }
@@ -145,7 +161,7 @@ void Model::nextStep()
 
 void Model::eatAnimals()
 {
-    this->F.sort([](Fox* f1, Fox* f2) { return f1->getage() > f2->getage(); });//сортировку по возрасту лис
+    this->F.sort([](Fox* f1, Fox* f2) { return f1->getage() > f2->getage(); });
     for (auto& i : this->F) {
         i->eat(*this);
     }

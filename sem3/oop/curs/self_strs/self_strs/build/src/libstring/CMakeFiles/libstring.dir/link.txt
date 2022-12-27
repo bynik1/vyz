@@ -1,0 +1,2 @@
+/usr/bin/ar qc liblibstring.a CMakeFiles/libstring.dir/Str.cpp.o
+/usr/bin/ranlib liblibstring.a
