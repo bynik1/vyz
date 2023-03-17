@@ -329,7 +329,7 @@ int main(){
     root = insert(root, 8);
     printf("%p\n", root);
     //printTree(root, 0);
-    root = deleteNode(root, 6);
+    //root = deleteNode(root, 6);
     printf("%p\n", root);
     //printTree(root, 0);
 

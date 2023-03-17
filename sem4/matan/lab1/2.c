@@ -5,7 +5,7 @@ int main(void) {
     int i, j;
     FILE *fp;
 
-    fp = fopen("matrix.txt", "r");
+    fp = fopen("1.txt", "r");
     if (fp == NULL) {
         printf("Error opening file\n");
         return 1;
