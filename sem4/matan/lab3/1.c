@@ -14,7 +14,7 @@ double f2(double x) { // функция для решения
 }
 
 
-void solve(double x0, double x1, double epsilon, int max_iterations, int function_number) {
+void metod_hord(double x0, double x1, double epsilon, int max_iterations, int function_number) {
     int iteration = 0;
     double dx, delta_x;
 
@@ -24,6 +24,7 @@ void solve(double x0, double x1, double epsilon, int max_iterations, int functio
             delta_x = -(f(x1) * (x1 - x0)) / (f(x1) - f(x0));
         else if(function_number == 1)
             delta_x = -(f1(x1) * (x1 - x0)) / (f1(x1) - f1(x0));
+            //delta_x = (f1(x1) * x0 - f1(x0)*x1) / (f1(x1) - f1(x0));
         else if(function_number == 2)
             delta_x = -(f2(x1) * (x1 - x0)) / (f2(x1) - f2(x0));
         x0 = x1;
@@ -55,15 +56,15 @@ int main() {
     epsilon = 0.001;
     x0 = 0;
     x1 = 1;
-    solve(x0, x1, epsilon, max_iterations, 0);
+    metod_hord(x0, x1, epsilon, max_iterations, 0);
     epsilon = 0.0001;
     x0 = -2;
     x1 = -1;
-    solve(x0, x1, epsilon, max_iterations, 1);
+    metod_hord(x0, x1, epsilon, max_iterations, 1);
     epsilon = 0.001;
     x0 = -1;
     x1 = 0;
-    solve(x0, x1, epsilon, max_iterations, 2);
+    metod_hord(x0, x1, epsilon, max_iterations, 2);
 
     return 0;
 }

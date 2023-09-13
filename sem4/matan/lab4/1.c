@@ -20,8 +20,8 @@ int solve(double a, double b, double epsilon, int function_number) {
     do {
         c = (a + b) / 2;
 
-        if (f(c, function_number) == 0.0)
-            break;
+        // if (f(c, function_number) == 0.0)
+        //     break;
 
         if (f(c, function_number) * f(a, function_number) < 0)
             b = c;
