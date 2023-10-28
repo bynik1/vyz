@@ -26,15 +26,24 @@ get_memory_info() {
     l1_cache=$(lscpu | grep 'L1d cache' | awk -F ': ' '{print $2}')
     l2_cache=$(lscpu | grep 'L2 cache' | awk -F ': ' '{print $2}')
     l3_cache=$(lscpu | grep 'L3 cache' | awk -F ': ' '{print $2}')
-    total_mem=$(free -h | awk '/^Память:/ {print $2}')
-    available_mem=$(free -h | awk '/^Память:/ {print $7}')
+    ozy_mem=$(free -h | awk '/^Память:/ {gsub(/,/, ".", $2); print $2}' | sed 's/Gi//'| tr ',' '.')
+    swap_mem=$(free -h | awk '/^Подкачка:/ {gsub(/,/, ".", $2); print $2}' | sed 's/Gi//')
+    total_mem=$(awk "BEGIN {print $ozy_mem + $swap_mem}") 
+
+
+    
+    #available_mem_total=$(free -h | awk '/^Память:/ {print $7}')
+
+    available_ozy_mem=$(free -h | awk '/^Память:/ {print $4}' | sed 's/Gi//' | tr ',' '.')
+    available_swap_mem=$(free -h | awk '/^Подкачка:/  {print $4}' | sed 's/Gi//'| tr ',' '.')
+    available_mem_total=$(awk "BEGIN {print $available_ozy_mem + $available_swap_mem}")
 
     echo "Оперативная память:"
     echo "Cache L1 - $l1_cache"
     echo "Cache L2 - $l2_cache"
     echo "Cache L3 - $l3_cache"
     echo "Всего - $total_mem"
-    echo "Доступно - $available_mem"
+    echo "Доступно - $available_mem_total"
     echo
 }
 
@@ -70,10 +79,9 @@ get_network_info() {
         mac=$(ip link show $interface | awk '/ether/ {print $2}')
         ip=$(ip addr show $interface | awk '/inet / {print $2}')
         link=$(ip link show $interface | awk '/link/ {print $2}')
-        max_speed=$(iwconfig wlp2s0 | grep "Bit Rate" | awk '{print $2}' | cut -d= -f2
-)
-        actual_speed=$(speedtest-cli --simple | grep "Download:" | awk '{print $2}'
-)
+        max_speed=$(iwconfig wlp2s0 | grep "Bit Rate" | awk '{print $2}' | cut -d= -f2)
+        actual_speed=$(speedtest-cli --simple | grep "Download:" | awk '{print $2}')
+        
 
         echo "Имя: $interface"
         echo "MAC: $mac"
