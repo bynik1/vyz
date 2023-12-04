@@ -4,44 +4,84 @@
 #include <stdlib.h>
 #include <inttypes.h>
 
+    /*  Матрица А хранится в распределенном виде.
+    Векторы B и C хранятся в каждом процессе.
+    Результирующий вектор C[m] формируется во всех процессах  */
+
+/*  С помощю функции get_chunk определяем параметры lb, ub.
+    Строки матрицы А за которые отвечает текущий процесс.
+    get_chunk равномерно распределяет оставшиеся элементы по первым процессам*/
+
+
+// распределяет части матрицы между различными процессами MPI. 
 void get_chunk(int a, int b, int commsize, int rank, int *lb, int *ub)
 {
-    /* OpenMP 4.0 spec (Sec. 2.7.1, default schedule for loops)
-    * For a team of commsize processes and a sequence of n items, let ceil(n ? commsize) be the integer q
-    * that satisfies n = commsize * q - r, with 0 <= r < commsize.
-    * Assign q iterations to the first commsize - r procs, and q - 1 iterations to the remaining r processes */
-    int n = b - a + 1;
-    int q = n / commsize;
+
+    int n = b - a + 1;// Вычисляется общий размер последовательности.
+    int q = n / commsize; // Определяется базовый размер чанка, равномерно распределяя элементы последовательности по процессам.
     if (n % commsize)
         q++;
-    int r = commsize * q - n;
-    /* Compute chunk size for the process */
+    int r = commsize * q - n;// количество лишних элементов, которые были добавлены при увеличении q.
     int chunk = q;
     if (rank >= commsize - r) chunk = q - 1;
-    *lb = a; /* Determine start item for the process */
-    if (rank > 0) { /* Count sum of previous chunks */
+    *lb = a;
+    if (rank > 0) { // Если rank больше 0, к *lb добавляется сумма размеров чанков всех предыдущих процессов.
         if (rank <= commsize - r)
             *lb += q * rank;
         else
             *lb += q * (commsize - r) + (q - 1) * (rank - (commsize - r));
     }
 
-    *ub = *lb + chunk - 1;
+    *ub = *lb + chunk - 1; // Верхняя граница *ub для чанка текущего процесса вычисляется путем добавления размера чанка к нижней границе и вычитания 1.
 }
-/* dgemv: Compute matrix-vector product c[m] = a[m][n] * b[n] */
+
+/* Каждый процесс выполняет умножение своей части матрицы на вектор. Результат сохраняется в соответствующей части массива c. c[m] = a[m][n] * b[n] */
 void dgemv(double *a, double *b, double *c, int m, int n)
 {
     int commsize, rank;
     MPI_Comm_size(MPI_COMM_WORLD, &commsize);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int lb, ub;
-    get_chunk(0, m - 1, commsize, rank, &lb, &ub);
+    get_chunk(0, m - 1, commsize, rank, &lb, &ub); // используется для определения диапазона строк матрицы A, которые обрабатывает текущий процесс MPI
     int nrows = ub - lb + 1;
     for (int i = 0; i < nrows; i++) {
         c[lb + i] = 0.0;
         for (int j = 0; j < n; j++)
             c[lb + i] += a[i * n + j] * b[j];
     }
+
+    int *displs = malloc(sizeof(*displs) * commsize); // хранит размер данных, который процесс i должен получить.
+    int *rcounts = malloc(sizeof(*rcounts) * commsize); // хранит смещение, начиная с которого данные процесса i будут размещаться в объединенном массиве.
+    for (int i = 0; i < commsize; i++) {
+        int l, u;
+        get_chunk(0, m - 1, commsize, i, &l, &u);
+        rcounts[i] = u - l + 1;
+        displs[i] = (i > 0) ? displs[i - 1] + rcounts[i - 1] : 0;
+    }
+/*  MPI_Allgatherv - это функция библиотеки MPI, предназначенная для сбора данных из всех процессов 
+    и их распределения среди всех процессов. В вашем конкретном вызове функции:
+        &c[lb]: Это адрес начала буфера данных, который вы отправляете на каждом процессе для сбора. Здесь 
+    используется адрес смещения относительно начала массива c.
+        ub - lb + 1: Это количество элементов данных, которые вы отправляете. Он определен как разница между 
+    верхним (ub) и нижним (lb) индексами, плюс один, чтобы включить в себя все элементы в этом диапазоне.
+        MPI_FLOAT: Это тип данных элементов, которые вы отправляете и ожидаете.
+        c: Это адрес начала буфера, куда будут собраны данные. В вашем случае, это главный буфер, куда будут собраны данные со всех процессов.
+        rcounts: Массив, в котором каждый элемент (rcounts[i]) представляет количество элементов данных, которые должны быть отправлены от
+    каждого процесса. Возможно, что rcounts содержит разные значения для каждого процесса.
+        displs: Массив, в котором каждый элемент (displs[i]) представляет смещение (в количестве элементов) от начала буфера c до начала блока данных, 
+    который будет собран от процесса i.
+        MPI_FLOAT: Тип данных, который ожидается для данных, принимаемых от каждого процесса.
+        MPI_COMM_WORLD: Коммуникатор, определяющий группу процессов, между которыми выполняется обмен данными. MPI_COMM_WORLD - это встроенный коммуникатор,
+    представляющий все процессы, участвующие в выполнении программы MPI.
+    */
+   
+    // Эта функция собирает данные из каждого процесса (в данном случае часть результата умножения матрицы на вектор) и объединяет их в один массив c.
+    // Каждый процесс отправляет часть данных (от c[lb] до c[ub]) и получает полные собранные данные от всех процессов.
+    MPI_Allgatherv(MPI_IN_PLACE, ub - lb + 1, MPI_FLOAT, c, rcounts, displs,
+                   MPI_FLOAT, MPI_COMM_WORLD);
+
+    free(displs);
+    free(rcounts);
 }
 
 int main(int argc, char **argv)
@@ -55,35 +95,41 @@ int main(int argc, char **argv)
 
     double t = MPI_Wtime();
     int lb, ub;
-    get_chunk(0, m - 1, commsize, rank, &lb, &ub); // Декомпозиция матрицы на горизонтальные полосы
-    int nrows = ub - lb + 1;
+    get_chunk(0, m - 1, commsize, rank, &lb, &ub); // вызывается перед выделением памяти для локальных частей матрицы A и векторов B и C в каждом процессе.
+    int nrows = ub - lb + 1; // Вычисляет количество строк матрицы, которые будут обрабатываться текущим процессом.
     double *a = malloc(sizeof(*a) * nrows * n);
     double *b = malloc(sizeof(*b) * n);
     double *c = malloc(sizeof(*c) * m);
-    // Each process initialize their arrays
+    // Для матрицы a значения инициализируются таким образом, что каждый элемент a[i][j] получает значение lb + i + 1, 
+    // где lb - нижняя граница назначенного диапазона строк для текущего процесса.
+
     for (int i = 0; i < nrows; i++) {
         for (int j = 0; j < n; j++)
             a[i * n + j] = lb + i + 1;
     }
 
+    // Для вектора b каждый элемент b[j] инициализируется значением j + 1.
     for (int j = 0; j < n; j++)
         b[j] = j + 1;
+    // умножения матрицы a на вектор b и сохраняет результат в векторе c.
     dgemv(a, b, c, m, n);
-    t = MPI_Wtime() - t;
+    t = MPI_Wtime() - t; // Вычисляет время, затраченное на выполнение операции dgemv.
 
     if (rank == 0) {
-    // Validation
-    for (int i = 0; i < m; i++) {
-        double r = (i + 1) * (n / 2.0 + pow(n, 2) / 2.0);
-        if (fabs(c[i] - r) > 1E-6) {
-        fprintf(stderr, "Validation failed: elem %d = %f (real value %f)\n", i, c[i], r);
-        break;
+        // Он перебирает все элементы вектора c и проверяет, соответствуют ли они ожидаемому значению, 
+        // которое рассчитывается как (i + 1) * (n / 2.0 + pow(n, 2) / 2.0).
+        // Если разница между вычисленным и ожидаемым значением превышает 1E-6, выводится сообщение об ошибке, и процесс валидации прерывается.
+        for (int i = 0; i < m; i++) {
+            double r = (i + 1) * (n / 2.0 + pow(n, 2) / 2.0);
+            if (fabs(c[i] - r) > 1E-6) {
+                fprintf(stderr, "Validation failed: elem %d = %f (real value %f)\n", i, c[i], r);
+                break;
+            }
         }
-    }
 
         printf("DGEMV: matrix-vector product (c[m] = a[m, n] * b[n]; m = %d, n = %d)\n", m, n);
         printf("Memory used: %" PRIu64 " MiB\n", (uint64_t)(((double)m * n + m + n) * sizeof(double)) >> 20);
-        double gflop = 2.0 * m * n * 1E-9;
+        double gflop = 2.0 * m * n * 1E-9; // производительность в GFLOPS (гигафлопах в секунду).
         printf("Elapsed time (%d procs): %.6f sec.\n", commsize, t);
         printf("Performance: %.2f GFLOPS\n", gflop / t);
     }

@@ -1,59 +1,35 @@
 #include <stdio.h>
 #include <math.h>
-#include <stdlib.h>
-#include <inttypes.h>
-#include <time.h>
 
-enum { m = 10000, n = 10000 };
-/* dgemv: Compute matrix-vector product c[m] = a[m][n] * b[n] */
-void dgemv(double *a, double *b, double *c, int m, int n)
-{
-    for (int i = 0; i < m; i++) {
-        c[i] = 0.0;
-        for (int j = 0; j < n; j++)
-            c[i] += a[i * n + j] * b[j];
+void solveQuadratic(double a, double b, double c) {
+    double discriminant = b*b - 4*a*c;
+    double root1, root2;
+
+    // Проверка наличия реальных корней
+    if (discriminant > 0) {
+        root1 = (-b + sqrt(discriminant)) / (2*a);
+        root2 = (-b - sqrt(discriminant)) / (2*a);
+        printf("Roots are: %.2f and %.2f\n", root1, root2);
+    } else if (discriminant == 0) {
+        root1 = root2 = -b / (2*a);
+        printf("Roots are: %.2f and %.2f\n", root1, root2);
+    } else {
+        printf("No real roots.\n");
     }
 }
 
-int main(int argc, char **argv)
-{
-    int n, m;
-    n = m = 25000;
+int main() {
+    // Коэффициенты для первого уравнения (n^2)/18 + 2n = 1024*1024
+    double a1 = 1.0/18.0, b1 = 2.0, c1 = -1024*1024*1024*18*8;
 
-    printf("Memory used: %" PRIu64 " MiB\n", (uint64_t)(((double)m * n + m + n) * sizeof(double)) >> 20);
-    clock_t start, end;
-    double cpu_time_used;
+    // Коэффициенты для второго уравнения n^2 + 2n = 1024*1024
+    double a2 = 1.0, b2 = 2.0, c2 = -1024*1024*1024*8;
 
-    start = clock();
-    double *a, *b, *c;
-    a = malloc(sizeof(*a) * m * n);
-    b = malloc(sizeof(*b) * n);
-    c = malloc(sizeof(*c) * m);
+    printf("Solving the first equation:\n");
+    solveQuadratic(a1, b1, c1);
 
-    for (int i = 0; i < m; i++) {
-        for (int j = 0; j < n; j++)
-            a[i * n + j] = i + 1;
-    }
+    printf("Solving the second equation:\n");
+    solveQuadratic(a2, b2, c2);
 
-    for (int j = 0; j < n; j++)
-        b[j] = j + 1;
-
-    dgemv(a, b, c, m, n);
-    end = clock();
-
-    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-    printf("Time used: %f seconds\n", cpu_time_used);
-    // Validation
-    for (int i = 0; i < m; i++) {
-        double r = (i + 1) * (n / 2.0 + pow(n, 2) / 2.0);
-        if (fabs(c[i] - r) > 1E-6) {
-            fprintf(stderr, "Validation failed: elem %d = %f (real value %f)\n", i, c[i], r); break;
-        }
-    }
-
-    double gflop = 2.0 * m * n * 1E-9;
-    printf("Elapsed time (serial): %.6f sec.\n", cpu_time_used);
-    printf("Performance: %.2f GFLOPS\n", gflop / cpu_time_used);
-    free(a); free(b); free(c);
     return 0;
 }

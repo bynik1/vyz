@@ -11,7 +11,6 @@ def draw(filenames, labels):
     dataX = []
     dataY = []
 
-    
     plt.rcParams["legend.markerscale"] = 2.0
     plt.rcParams['font.family'] = 'sans-serif'
     plt.rcParams['font.size'] = '12'
@@ -20,7 +19,7 @@ def draw(filenames, labels):
     plt.rcParams["legend.fontsize"] = "5"
 
     cm = 1/2.54  # centimeters in inches
-    fig = plt.figure(figsize=(9*cm, 7*cm))
+    fig = plt.figure(figsize=(10*cm, 7*cm))
     ax = fig.add_subplot(111)
     ax.set_title("")
     ax.set(xlabel="Количество p процессов", ylabel="Ускорение S(p)")
@@ -28,17 +27,13 @@ def draw(filenames, labels):
 
     ax.xaxis.set_tick_params(direction='in', which='both')
     ax.yaxis.set_tick_params(direction='in', which='both')
-    ax.xaxis.set_major_locator(ticker.MultipleLocator(2))
-    ax.yaxis.set_major_locator(ticker.MultipleLocator(2))
+    ax.xaxis.set_major_locator(ticker.MultipleLocator(4))
+    ax.yaxis.set_major_locator(ticker.MultipleLocator(4))
 
-    plt.figtext(0.224, 0.15, "(1x4)", fontsize=5, ha='center', va='center')
-    plt.figtext(0.334, 0.15, "(1x6)", fontsize=5, ha='center', va='center')
-    plt.figtext(0.444, 0.15, "(2x4)", fontsize=5, ha='center', va='center')
-    plt.figtext(0.557, 0.15, "(2x5)", fontsize=5, ha='center', va='center')
+    plt.figtext(0.235, 0.15, "(1x4)", fontsize=5, ha='center', va='center')
+    plt.figtext(0.455, 0.15, "(2x4)", fontsize=5, ha='center', va='center')
     plt.figtext(0.675, 0.15, "(2x6)", fontsize=5, ha='center', va='center')
-    plt.figtext(0.786, 0.15, "(2x7)", fontsize=5, ha='center', va='center')
-    plt.figtext(0.896, 0.15, "(2x8)", fontsize=5, ha='center', va='center')
-    #plt.figtext(0.90, 0.15, "(2x8)", fontsize=5, ha='center', va='center')
+    plt.figtext(0.90, 0.15, "(2x8)", fontsize=5, ha='center', va='center')
 
     count_versions = 0
     lbls = []
@@ -63,23 +58,19 @@ def draw(filenames, labels):
         else:
             lbl = ""
         ax.bar(thrd_cur + p_offset, thrd_cur,
-               label=lbl, color="#AC6869", width=wdh)
+               label=lbl, color="black", width=wdh)
         thrd_cur += thrd_step
 
     # p_offset += wdh * 0.5
     p_offset += wdh
     for i in range(0, len(dataX)):
-        colors = ["#ECA4A4", "#F7E2E1"]  # Красный и желтый цвета для данных
-        ax.bar(dataX[i] + p_offset, dataY[i], label=lbls[i], color=colors[i], width=wdh)
+        ax.bar(dataX[i] + p_offset, dataY[i], label=lbls[i], width=wdh)
         p_offset += wdh
 
-   # ax.set_yticks([1, 2, 3, 4, 5, 6, 7, 8, 9])
-    ax.set_yticks(np.arange(10) * 2)
-    ax.set_yticklabels(np.arange(10))
     plt.tight_layout()
     ax.legend()
     fig.savefig('chart.png', dpi=300)
     # fig.savefig('chart.pdf', dpi=300)
 
 if __name__ == "__main__":
-    draw(["data1.dat", "data2.dat"], ["n=28000", "n=45000"])
+    draw(["data1.dat", "data2.dat"], ["n=1000", "n=10000"])

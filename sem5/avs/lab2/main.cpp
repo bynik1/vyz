@@ -1,6 +1,13 @@
 #include <iostream>
 #include <fstream>
 #include <cxxopts.hpp>
+#include <csignal>
+
+// Обработчик сигнала
+void signalHandler(int signum) {
+    std::cout << "Программа завершает работу по сигналу (Ctrl+C)." << std::endl;
+    exit(signum);  
+}
 
 int main(int argc, char* argv[]) {
     cxxopts::Options options("MyProgram", "Программа для чтения файла и вывода его содержимого");
@@ -22,6 +29,8 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    signal(SIGINT, signalHandler);
+    
     std::ifstream fileStream(filePath);
     if (fileStream) {
         std::cout << "Содержимое файла " << filePath << ":" << std::endl;
