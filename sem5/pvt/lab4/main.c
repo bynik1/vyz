@@ -34,6 +34,7 @@ int main(int argc, char *argv[]) {
     MPI_Comm cartcomm; // Объявление коммуникатора для 2D сетки
     int dims[2] = {0, 0}, periodic[2] = {0, 0}; // Массивы для размеров сетки и периодичности
     MPI_Dims_create(commsize, 2, dims); // Создание размеров сетки 2 X 6
+
     int px = dims[0];  // Количество процессов по оси x
     int py = dims[1];  // Количество процессов по оси y
     // Проверка корректности количества процессов
@@ -45,6 +46,7 @@ int main(int argc, char *argv[]) {
         MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
     }
     // Создание картезианской топологии
+
     MPI_Cart_create(MPI_COMM_WORLD, 2, dims, periodic, 0, &cartcomm); // cоздания нового коммуникатора, который организует 
     // процессы в двумерную топологию сетки (картографическую топологию) декартову сетку. 
     int coords[2];  // Массив для хранения координат процесса в сетке
@@ -58,7 +60,7 @@ int main(int argc, char *argv[]) {
         rows = (argc > 1) ? atoi(argv[1]) : py * 100;  // Чтение количества строк из аргументов или вычисление по умолчанию
         cols = (argc > 2) ? atoi(argv[2]) : px * 100;  // Чтение количества столбцов из аргументов или вычисление по умолчанию
         // Проверка на достаточность размера сетки
-           if (rows < py) {
+        if (rows < py) {
             fprintf(stderr,
                     "Number of rows %d less then number of py processes %d\n",
                     rows, py);
@@ -157,11 +159,13 @@ int main(int argc, char *argv[]) {
 
         // Синхронизация и определение максимальной разницы среди всех процессов
         treduce -= MPI_Wtime();
+
         MPI_Allreduce(MPI_IN_PLACE, &maxdiff, 1, MPI_DOUBLE, MPI_MAX, MPI_COMM_WORLD);// Объединяет значения всех процессов и распределяет результат обратно по всем процессам
         treduce += MPI_Wtime();
         if (maxdiff < EPS) break; // Выход из цикла, если достигнута сходимость
 
         // Обмен граничными данными с соседними процессами обмен теневыми ячейками
+
         thalo -= MPI_Wtime();
         MPI_Irecv(&local_grid[IND(0, 1)], 1, row, top, 0, cartcomm, &reqs[0]);  // Получение данных от верхнего соседа
         MPI_Irecv(&local_grid[IND(ny + 1, 1)], 1, row, bottom, 0, cartcomm, &reqs[1]);  // Получение данных от нижнего соседа
@@ -207,8 +211,8 @@ int main(int argc, char *argv[]) {
 
     // Завершение работы с MPI
     MPI_Finalize();
-    
+
     return 0;
 }
 
-// mpirun -np 16 ./a.out 10000 10000
+// mpirun -np 16 ./a.out 10000 
