@@ -14,7 +14,7 @@ gcc client.c -o client2
 chmod +x server client1 client2
 
 # Запуск сервера в новом терминале xterm и запись его вывода в файл server.log для последующего получения порта и IP
-xterm -hold -e "./server > server.log" &
+xterm -hold -e "./server" &
 
 # Задержка, чтобы сервер успел запуститься и получить порт
 sleep 2
