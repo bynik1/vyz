@@ -88,15 +88,20 @@ int main(int argc, char *argv[]) {
         perror("Ошибка getsockname");
         return 1;
     }
-    
-    // Вывод IP-адреса и порта сервера
-    char hostbuffer[256];
-    char *IPbuffer;
-    struct hostent *host_entry;
-    int hostname;
-    
     char *ip_address = inet_ntoa(server.sin_addr);
     printf("Сервер запущен на IP: %s, порту: %d\n", ip_address, ntohs(server.sin_port));
+    
+    // Открытие файла лога для записи
+    FILE *log_fp = fopen("server.log", "a");
+    if (log_fp != NULL) {
+        // Вывод IP-адреса и порта сервера в файл лога
+        fprintf(log_fp, "Сервер запущен на IP: %s, порту: %d\n", ip_address, ntohs(server.sin_port));
+        fclose(log_fp); // Закрытие файла после записи
+    } else {
+        perror("Ошибка при открытии файла лога сервера");
+    }
+
+    
     
     // Прослушивание
     listen(socket_desc, MAX_CLIENTS);
