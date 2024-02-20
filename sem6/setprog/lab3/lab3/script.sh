@@ -13,8 +13,8 @@ gcc client.c -o client2
 # Даем права на выполнение
 chmod +x server client1 client2
 
-# Запуск сервера в новом терминале xterm и запись его вывода в файл server.log для последующего получения порта и IP
-xterm -hold -e "./server" &
+# Запуск сервера в новом терминале GNOME Terminal и запись его вывода в файл server.log для последующего получения порта и IP
+gnome-terminal -- bash -c "./server > server.log 2>&1; exec bash"
 
 # Задержка, чтобы сервер успел запуститься и получить порт
 sleep 2
@@ -27,7 +27,6 @@ ip=$(grep "IP адрес сервера" server.log | awk '{print $NF}')
 
 echo "IP: $ip, Port: $port"
 
-# Запуск клиентов в новых терминалах xterm с передачей IP адреса и порта и перенаправлением их вывода в соответствующие log файлы
-xterm -hold -e "bash -c './client1 \"$ip\" \"$port\" 10 > client_output_1.log 2>&1; exec bash'" &
-xterm -hold -e "bash -c './client2 \"$ip\" \"$port\" 10 > client_output_2.log 2>&1; exec bash'" &
-
+# Запуск клиентов в новых терминалах GNOME Terminal с передачей IP адреса и порта и перенаправлением их вывода в соответствующие log файлы
+gnome-terminal -- bash -c "./client1 $ip $port 10 > client_output_1.log 2>&1; exec bash"
+gnome-terminal -- bash -c "./client2 $ip $port 10 > client_output_2.log 2>&1; exec bash"
