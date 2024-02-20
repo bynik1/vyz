@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Создание log файлов, если они не существуют
+touch server.log
+touch client_output_1.log
+touch client_output_2.log
+
 # Компиляция сервера
 gcc server.c -o server
 
