@@ -90,12 +90,13 @@ int main(int argc, char *argv[]) {
     }
     char *ip_address = inet_ntoa(server.sin_addr);
     printf("Сервер запущен на IP: %s, порту: %d\n", ip_address, ntohs(server.sin_port));
-    
+
     // Открытие файла лога для записи
     FILE *log_fp = fopen("server.log", "a");
     if (log_fp != NULL) {
         // Вывод IP-адреса и порта сервера в файл лога
-        fprintf(log_fp, "Сервер запущен на IP: %s, порту: %d\n", ip_address, ntohs(server.sin_port));
+        fprintf(log_fp, "Сервер запущен на порту %d\n", ntohs(server.sin_port));
+        fprintf(log_fp, "IP адрес сервера: %s\n", ip_address);
         fclose(log_fp); // Закрытие файла после записи
     } else {
         perror("Ошибка при открытии файла лога сервера");
