@@ -29,7 +29,7 @@ void *client_handler(void *socket_desc) {
         pthread_mutex_lock(&lock);
         
         // Запись данных в файл и вывод в консоль
-        FILE *fp = fopen("data.txt", "a");
+        FILE *fp = fopen("server.log", "a");
         if(fp != NULL) {
             fprintf(fp, "IP клиента: %s\nПорт клиента: %d\nПолучено от клиента: %s\n", 
                     inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port), client_message);
