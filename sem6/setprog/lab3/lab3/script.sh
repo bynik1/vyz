@@ -24,5 +24,5 @@ gcc client.c -o client1
 gcc client.c -o client2
 
 # Запуск клиентов в новых терминалах xterm с передачей IP адреса и порта и перенаправлением их вывода в соответствующие log файлы
-xterm -e "bash -c './client1 $ip $port 10 > client_output_1.log; exec bash'" &
-xterm -e "bash -c './client2 $ip $port 5 > client_output_2.log; exec bash'" &
+xterm -e "bash -c './client1 $ip $port> client_output_1.log; exec bash'" &
+xterm -e "bash -c './client2 $ip $port> client_output_2.log; exec bash'" &
