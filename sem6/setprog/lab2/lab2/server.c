@@ -19,7 +19,8 @@ void sigchld_handler(int signo) {
         printf("Процесс %d завершился с кодом возврата: %d\n", terminated_child_pid, WEXITSTATUS(status));
     }
 }
-
+// читает данные, отправленные клиентом, и выводит их на экран до 
+// тех пор, пока клиент не закроет соединение или не перестанет отправлять данные.
 void handle_client(int client_socket, int client_number) {
     char buffer[MAX_BUFFER_SIZE];
     ssize_t bytes_received;
