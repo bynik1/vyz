@@ -17,7 +17,7 @@ port=$(grep "Listening on port" server.log | awk '{print $NF}')
 
 # Получение IP адреса сервера
 ip=$(grep "IP адрес сервера" server.log | awk '{print $NF}')
-
+echo $ip $port
 # Компиляция клиентов
 gcc client.c -o client1
 gcc client.c -o client2
