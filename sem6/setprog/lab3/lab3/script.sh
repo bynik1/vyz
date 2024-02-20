@@ -25,5 +25,5 @@ port=$(grep "Listening on port" server.log | awk '{print $NF}')
 ip=$(grep "IP адрес сервера" server.log | awk '{print $NF}') # Подставьте сюда правильный grep, если формат другой
 
 # Запуск клиентов в новых терминалах xterm с передачей IP адреса и порта и перенаправлением их вывода в соответствующие log файлы
-xterm -hold -e "bash -c './client1 $ip $port 10> client_output_1.log; exec bash'" &
-xterm -hold -e "bash -c './client2 $ip $port 10> client_output_2.log; exec bash'" &
+xterm -hold -e "bash -c './client1 $ip $port 10 > client_output_1.log; exec bash'" &
+xterm -hold -e "bash -c './client2 $ip $port 10 > client_output_2.log; exec bash'" &
