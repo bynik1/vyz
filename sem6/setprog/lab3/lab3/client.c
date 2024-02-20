@@ -6,15 +6,15 @@
 #include <arpa/inet.h>
 
 int main(int argc, char *argv[]) {
-    if(argc != 4) {
-        printf("Usage: %s <IP> <Port> <Number>\n", argv[0]);
+    if(argc != 3) {
+        printf("Usage: %s <IP> <Port>\n", argv[0]);
         return 1;
     }
 
     int sock;
     struct sockaddr_in server;
     char message[1000], server_reply[2000];
-    int number = atoi(argv[3]);
+
 
     // Создание сокета
     sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
     
-    for(int i = 0; i < number; i++) {
+    for(int i = 0; i < 10; i++) {
         sprintf(message, "Number: %d\n", i);
         // Отправка сообщения
         if(send(sock, message, strlen(message), 0) < 0) {
