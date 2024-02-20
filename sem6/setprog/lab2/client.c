@@ -1,24 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
+#include <unistd.h>
 #include <arpa/inet.h>
+#include <errno.h>
 
 #define MAXLINE 1024
-
-void error(const char *msg) {
-    perror(msg);
-    exit(0);
-}
 
 int main(int argc, char *argv[]) {
     int sockfd;
     int data, i;
     struct sockaddr_in servaddr;
+    struct hostent *server;
 
     if (argc != 4) {
         fprintf(stderr, "Использование: %s <IP сервера> <порт сервера> <число>\n", argv[0]);
@@ -36,6 +29,9 @@ int main(int argc, char *argv[]) {
     // Заполнение информации о сервере
     servaddr.sin_family = AF_INET;
     servaddr.sin_port = htons(atoi(argv[2]));
+    bcopy((char *)server->h_addr,
+          (char *)&servaddr.sin_addr.s_addr,
+          server->len);
     if (inet_aton(argv[1], &servaddr.sin_addr) == 0) {
         fprintf(stderr, "Неверный IP адрес\n");
         fprintf(stderr, "errno = %d\n", errno); // Выводим errno

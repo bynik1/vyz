@@ -1,13 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
 #include <arpa/inet.h>
+#include <errno.h>
 
 #define MAXLINE 1024
 
 int main() {
-    int sockfd, data;
+    int sockfd;
     int port = 0;
     struct sockaddr_in servaddr, cliaddr;
     socklen_t len = sizeof(cliaddr);
@@ -31,8 +35,6 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
-    listen(sockfd, 5);
-
     // Получаем назначенный порт
     getsockname(sockfd, (struct sockaddr *)&servaddr, &len);
     port = ntohs(servaddr.sin_port);
@@ -51,25 +53,25 @@ int main() {
     fflush(logFile);  // Принудительный сброс буфера
 
     while (1) {
-        newsockfd = accept(sockfd, (struct sockaddr *) &cliaddr, &len);
-        if (newsockfd < 0)
-            error("Ошибка при приеме запроса");
-        
-        int pid = fork(); // Создание нового процесса
-        
-        if (pid < 0)
-            error("Ошибка при вызове fork");
-        
-        if (pid == 0) { // Процесс-потомок
-            close(sockfd);
-            printf("Получено сообщение от клиента: %d\n", data);
-            close(newsockfd);
-            exit(0);
+        // Получение данных от клиента
+        int data = 0;
+        ssize_t bytesRead = recvfrom(sockfd, &data, sizeof(data), 0,(struct sockaddr*)&cliaddr, &len);
+        if (bytesRead < 0) {
+            perror("Ошибка получения данных");            
+            continue;
         }
-        else // Процесс-родитель
-            close(newsockfd);
-    }
-    close(sockfd);
+
+        // Вывод полученных данных и адреса клиента на экран
+        printf("Получено от клиента: %d\n", data);
+        printf("IP клиента: %s\n", inet_ntoa(cliaddr.sin_addr));
+        printf("Порт клиента: %d\n", ntohs(cliaddr.sin_port));
+
+        // Отправка преобразованных данных обратно клиенту 
+
+        int result = data;        //printf("---%d\n", data);
+        // Отправляем преобразованные данные обратно клиенту       
+        sendto(sockfd, &result, sizeof(result), 0,(struct sockaddr*)&cliaddr, len);
+        // Запись в лог-файл
         fprintf(logFile, "Получено от клиента: %d\n", data);
         fprintf(logFile, "IP клиента: %s\n", inet_ntoa(cliaddr.sin_addr));
         fprintf(logFile, "Порт клиента: %d\n", ntohs(cliaddr.sin_port));

@@ -23,8 +23,8 @@ gcc client.c -o client2
 # Запуск клиента с передачей IP адреса, порта и числа
 # echo "Передача аргументов в ./client1: $ip $port 10"
 
-./client1 "$ip" "$port" "1" > client_output_1.log &
-./client2 "$ip" "$port" "2" > client_output_2.log &
+./client1 "$ip" "$port" > client_output_1.log &
+./client2 "$ip" "$port" > client_output_2.log &
 
 
 # Удаление лога сервера
